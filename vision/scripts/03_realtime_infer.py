@@ -1,22 +1,32 @@
 from __future__ import annotations
 import sys
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.append(str(ROOT / "src"))
-
 import time
+from pathlib import Path
 from collections import deque
+
+# --- 1. SETUP PATHS DYNAMICALLY ---
+# Find the 'spider-llm-operator' root folder
+# script is in: spider-llm-operator/vision/scripts/03...
+# parents[0]=scripts, parents[1]=vision, parents[2]=spider-llm-operator
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+# Add root to sys.path so we can import 'vision.spider_vision'
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
 
 import cv2
 import mediapipe as mp
 import numpy as np
 import onnxruntime as ort
 
-from gestures.config import Paths, USE_Z, MODEL_ONNX, LABELS_JSON, SCALER_JSON
-from gestures.features import landmarks_to_features
-from gestures.infer import softmax, apply_scaler
-from gestures.io import load_json, load_scaler
+# --- 2. UPDATED IMPORTS (The "Pro" Way) ---
+# Now we import from the new package name 'vision.spider_vision'
+from vision.spider_vision.config import Paths, USE_Z, MODEL_ONNX, LABELS_JSON, SCALER_JSON
+from vision.spider_vision.features import landmarks_to_features
+from vision.spider_vision.infer import softmax, apply_scaler
+from vision.spider_vision.io import load_json, load_scaler
+
+# ... rest of your code ...
 
 
 # ---------- SETTINGS ----------
