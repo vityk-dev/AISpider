@@ -1,0 +1,1 @@
+from vision.spider_vision.infer import predict_gesture

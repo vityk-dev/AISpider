@@ -39,8 +39,14 @@ Thumbs.db
 logs/
 
 # --- Models & Large Files ---
-# If you download large AI models locally, ignore them
+# ... (keep all your other rules) ...
+
+# --- Large AI Models ---
 *.pt
 *.pth
 *.onnx
-models/
+*.tflite
+
+# --- Exceptions (Whitelisted files) ---
+!vision/models/*.onnx
+!vision/models/*.tflite
