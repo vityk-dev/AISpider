@@ -1,0 +1,46 @@
+# --- Python & Virtual Environments ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+spider/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Environment Variables & Secrets (CRITICAL) ---
+# Never commit your API keys!
+.env
+.env.local
+.env.*.local
+
+# --- Streamlit ---
+# Ignores local Streamlit config/secrets
+.streamlit/secrets.toml
+
+# --- VS Code ---
+# Ignore user-specific workspace settings
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# --- OS Generated Files ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Models & Large Files ---
+# If you download large AI models locally, ignore them
+*.pt
+*.pth
+*.onnx
+models/

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # SERVICE 1: The Robot Brain (Runs on Jetson)
+  robot:
+    build: .
+    container_name: spider_robot
+    command: uvicorn robot.spider_robot.api:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app  # "Hot Reload": Changes in VS Code update the container instantly
+    devices:
+      - /dev/i2c-1:/dev/i2c-1  # CRITICAL: Gives container access to I2C hardware
+    privileged: true           # Needed for some GPIO access
+    network_mode: host         # Easiest way for Jetson networking
+    env_file:
+      - .env
+
+  # SERVICE 2: The UI (Runs on Laptop or Jetson)
+  ui:
+    build: .
+    container_name: spider_ui
+    command: streamlit run ui/app.py --server.port 8501 --server.address 0.0.0.0
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    depends_on:
+      - robot
+
+  # SERVICE 3: The Planner (Azure Logic)
+  operator:
+    build: .
+    container_name: spider_operator
+    # Keeps it running so you can execute scripts manually
+    command: tail -f /dev/null 
+    volumes:
+      - .:/app
+    env_file:
+      - .env
