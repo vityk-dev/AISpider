@@ -1,4 +1,4 @@
-// vision/requirements.txt
+# vision/requirements.txt
 numpy>=1.23,<3
 opencv-python>=4.8
 mediapipe==0.10.9
